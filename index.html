@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASCII Bakery</title>
+  <style>
+    :root {
+      --pink: #f6caca;
+      --peach: #fdf6f0;
+      --text: #333;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--peach);
+      color: var(--text);
+    }
+    header {
+      background: var(--pink);
+      padding: 20px;
+      text-align: center;
+    }
+    header img {
+      height: 100px;
+    }
+    h1 {
+      margin: 10px 0;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    h2 {
+      border-bottom: 2px solid var(--pink);
+      padding-bottom: 5px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      margin: 5px 0;
+    }
+    a {
+      color: #c0392b;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    input, select, textarea, button {
+      font-size: 1rem;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: var(--pink);
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #f4bcbc;
+    }
+    .success-message {
+      background: #e8f9e9;
+      border: 1px solid #b3e6b6;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      display: none;
+      color: #2a6f2a;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #eee;
+      font-size: 0.9rem;
+    }
+    @media screen and (max-width: 600px) {
+      body, main {
+        padding: 10px;
+      }
+      header img {
+        height: 80px;
+      }
+    }
+  </style>
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const data = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          document.getElementById('success').style.display = 'block';
+          form.reset();
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <img src="asciibakerylogo.png" alt="ASCII Bakery Logo">
+    <h1>ASCII Bakery</h1>
+    <p>Artisan Sourdough & Bold Cookies from San Francisco</p>
+  </header>
+  <main>
+    <section>
+      <h2>🍞 Our Breads</h2>
+      <ul>
+        <li><strong>Sourdough Sandwich Loaf</strong> – Soft, tangy, and perfect for sandwiches.</li>
+        <li><strong>French Boule</strong> – A crusty rustic loaf with a tender crumb.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>🍪 Our Cookies</h2>
+      <ul>
+        <li><strong>Gochujang Caramel Cookie</strong> – Sweet, spicy, chewy, and unforgettable.</li>
+        <li><strong>Brown Butter Chocolate Chip</strong> – Chewy with dark chocolate and flaky salt.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>⏰ Pickup Schedule</h2>
+      <p>Choose your pickup day when ordering. Current pickup options:</p>
+      <ul>
+        <li><strong>Friday</strong> (2pm–6pm)</li>
+        <li><strong>Sunday</strong> (11am–3pm)</li>
+        <li><strong>Wednesday</strong> (12pm–4pm)</li>
+      </ul>
+    </section>
+    <section>
+      <h2>✉️ Place an Order</h2>
+      <form name="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="orderForm">
+        <p style="display:none">
+          <label>Don’t fill this out: <input name="bot-field"></label>
+        </p>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <select name="pickup-day" required>
+          <option value="">Select a Pickup Day</option>
+          <option value="Friday">Friday (2pm–6pm)</option>
+          <option value="Sunday">Sunday (11am–3pm)</option>
+          <option value="Wednesday">Wednesday (12pm–4pm)</option>
+        </select>
+        <textarea name="order" rows="5" placeholder="What would you like to order?" required></textarea>
+        <button type="submit">Submit Order</button>
+        <div id="success" class="success-message">
+          Thank you! Your order has been received. We'll be in touch shortly via email.
+        </div>
+      </form>
+    </section>
+    <section>
+      <h2>📱 Stay in Touch</h2>
+      <p>Email: <a href="mailto:orders@asciibakery.com">orders@asciibakery.com</a></p>
+      <p>Instagram: <a href="https://instagram.com/asciibakery" target="_blank">@asciibakery</a></p>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 ASCII Bakery — Built with ❤️ in San Francisco
+  </footer>
+</body>
+</html>
